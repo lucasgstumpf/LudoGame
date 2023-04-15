@@ -14,18 +14,9 @@ public class Peao {
     private int cor;
     //Verde = 1
     //Azul = 2
-   
-    
-    private int casa;
 
-    public Peao(int cor, int casa) {
+    public Peao(int cor) {
         this.cor = cor;
-        this.casa = casa;
-    }
-    
-    
-    public void andar(){
-        
     }
     
     public int getCor() {
@@ -34,13 +25,5 @@ public class Peao {
 
     public void setCor(int cor) {
         this.cor = cor;
-    }
-
-    public int getCasa() {
-        return casa;
-    }
-
-    public void setCasa(int casa) {
-        this.casa = casa;
     }
 }
