@@ -7,6 +7,8 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
@@ -68,12 +70,12 @@ public class UITabuleiro extends javax.swing.JPanel {
                     casinha[i][j].setCor(Color.YELLOW);
                 }
                 
-                if ((i == 1 & j == 1) || (i == 1 & j == 4) || (i == 3 & j == 1) || (i == 3 & j == 4) )  {
+                if ((i == 1 & j == 1) || (i == 1 & j == 4) || (i == 4 & j == 1) || (i == 4 & j == 4) )  {
                     casinha[i][j].setCor(Color.WHITE);
                     casinha[i][j].setCorPiao(Color.GREEN);
                 }
                 
-                if ((i == 1 & j == 10) || (i == 1 & j == 13)  ||(i == 3 & j == 10) || (i == 3 & j == 13) )  {
+                if ((i == 1 & j == 10) || (i == 1 & j == 13)  ||(i == 4 & j == 10) || (i == 4 & j == 13) )  {
                     casinha[i][j].setCor(Color.WHITE);
                     
                     casinha[i][j].setCorPiao(Color.YELLOW);
@@ -93,6 +95,19 @@ public class UITabuleiro extends javax.swing.JPanel {
                 add(casinha[i][j]);
             }
         }
+        
+        casinha[0][0].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // código a ser executado quando a casinha é clicada
+                        // use as variáveis i e j para identificar qual casinha foi clicada
+                        System.out.println("Casinha  clicada.");
+
+                        // aqui você pode chamar a função correspondente à casinha clicada
+                        // por exemplo: se a casinha clicada for a [3][5], chame a função correspondente à essa posição da matriz
+                        // funcoes[3][5]();
+                    }
+                });
         
         
         
