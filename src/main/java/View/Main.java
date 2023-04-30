@@ -6,9 +6,20 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -19,17 +30,51 @@ public class Main extends javax.swing.JFrame {
     public static void main(String[] args) {
         UITabuleiro tabuleiro = new UITabuleiro();
 
+        //Cria o Jframe
         JFrame frame = new JFrame("Jogo Ludo");
         JPanel rightPanel = new JPanel();
+        //Cria o Painel da direita
         rightPanel.setPreferredSize(new Dimension(500, 500)); // define o tamanho do painel da direita
-
-        rightPanel.add(new JLabel("Meu painel da direita"));
         frame.setLayout(new BorderLayout());
+        rightPanel.setLayout(new FlowLayout());
+
+        //Cria o Botao como jogar     
+        JButton button = new JButton("Como jogar?"); // cria um novo botão
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Mensagem 1\nMensagem 2", "Como jogar!", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+
+        rightPanel.add(button);
         frame.add(tabuleiro, BorderLayout.CENTER);
         frame.add(rightPanel, BorderLayout.EAST);
+        //Botao Desistir
+        JButton buttonDesistir = new JButton("Desistir"); // cria um novo botão
+        rightPanel.add(buttonDesistir);
+        buttonDesistir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int resposta = JOptionPane.showOptionDialog( null,  "Deseja continuar?", "Desistir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, new String[] {"Quero!", "Não, vou continuar jogando"},"Sim");
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // O usuário clicou no botão "OK"
+                    // Encerra o aplicativo
+                    System.out.println("Clicou sim");
+                }
+            }
+        });
 
+        //Barra de menu
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menuConectar = new JMenu("Jogar");
+        menuBar.add(menuConectar);
+        JMenuItem itemHost = new JMenuItem("Host");
+        JMenuItem itemConectar = new JMenuItem("Conectar");
+        menuConectar.add(itemHost);
+        menuConectar.add(itemConectar);
 
-        frame.add(tabuleiro);
+        frame.setJMenuBar(menuBar);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -45,16 +90,17 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 125, Short.MAX_VALUE)
         );
 
         pack();

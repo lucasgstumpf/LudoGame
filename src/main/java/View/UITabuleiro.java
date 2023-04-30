@@ -99,13 +99,7 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha[0][0].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // código a ser executado quando a casinha é clicada
-                        // use as variáveis i e j para identificar qual casinha foi clicada
-                        System.out.println("Casinha  clicada.");
 
-                        // aqui você pode chamar a função correspondente à casinha clicada
-                        // por exemplo: se a casinha clicada for a [3][5], chame a função correspondente à essa posição da matriz
-                        // funcoes[3][5]();
                     }
                 });
         
