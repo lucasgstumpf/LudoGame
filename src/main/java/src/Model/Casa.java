@@ -21,6 +21,13 @@ public class Casa {
         this.tipoCasa = tipoCasa;
     }
     
+    public boolean verificaCasaFinalCheia(){
+        if(peoes.size() == 4){
+            return true;
+        }
+        return false;
+    }
+    
     public void addPeao(Peao peaoRecente){
         if(tipoCasa.equals(TipoCasa.NORMAL)){
             if(!peoes.isEmpty()){

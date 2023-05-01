@@ -4,6 +4,7 @@
  */
 package View;
 
+import Controller.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
  */
 public class Main extends javax.swing.JFrame {
 
+    private static Controller controller = new Controller();
+     
     public static void main(String[] args) {
         UITabuleiro tabuleiro = new UITabuleiro();
 
@@ -54,12 +57,13 @@ public class Main extends javax.swing.JFrame {
         JButton buttonDesistir = new JButton("Desistir"); // cria um novo botão
         rightPanel.add(buttonDesistir);
         buttonDesistir.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int resposta = JOptionPane.showOptionDialog( null,  "Deseja continuar?", "Desistir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, new String[] {"Quero!", "Não, vou continuar jogando"},"Sim");
                 if (resposta == JOptionPane.YES_OPTION) {
                     // O usuário clicou no botão "OK"
                     // Encerra o aplicativo
-                    System.out.println("Clicou sim");
+                    controller.desistir();
                 }
             }
         });
@@ -79,7 +83,7 @@ public class Main extends javax.swing.JFrame {
         frame.pack();
         frame.setVisible(true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

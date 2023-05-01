@@ -13,14 +13,26 @@ import java.util.ArrayList;
 public class Jogo {
     
     private final static ArrayList<Casa> casas = new ArrayList<>();
+    private final static ArrayList<Casa> casasIniciais = new ArrayList<>();
+    private final static ArrayList<Casa> casasFinais = new ArrayList<>();
+    private boolean vencedor;
     
     public Jogo() {
+        this.vencedor = false;
     }
     
     public void addCasaLiberada(Casa casa){
         casas.add(casa);
     }
     
+    public void addCasaInicias(Casa casa){
+        casasIniciais.add(casa);
+    }
+    
+    public void addCasaFinais(Casa casa){
+        casasFinais.add(casa);
+    }
+     
     public int rodarDado(){
         int valorDado = 1 + (int)(Math.random()*6);
         return valorDado;
@@ -36,6 +48,16 @@ public class Jogo {
     
     public void iniciarJogo(){
         reiniciarTabuleiro();     
+    }
+    
+    public boolean fimDeJogo(){
+        for(Casa casaFinal : casasFinais){
+            if(casaFinal.verificaCasaFinalCheia()){
+                this.vencedor = true;
+                return true;
+            }
+        }
+        return false;
     }
     
     public void criacaoCasas(){
@@ -93,6 +115,8 @@ public class Jogo {
         Casa casa51 = new Casa(TipoCasa.NORMAL);
         Casa casaInicialAzul = new Casa(TipoCasa.INICIAL);
         Casa casaInicialVerde = new Casa(TipoCasa.INICIAL);
+        Casa casaFinalAzul = new Casa(TipoCasa.FINAL);
+        Casa casaFinalVerde = new Casa(TipoCasa.FINAL);
         
         addCasaLiberada(casa);
         addCasaLiberada(casa1);
@@ -146,8 +170,10 @@ public class Jogo {
         addCasaLiberada(casa49);
         addCasaLiberada(casa50);
         addCasaLiberada(casa51);
-        addCasaLiberada(casaInicialAzul);
-        addCasaLiberada(casaInicialVerde);
+        addCasaInicias(casaInicialAzul);
+        addCasaInicias(casaInicialVerde);
+        addCasaFinais(casaFinalAzul);
+        addCasaFinais(casaFinalVerde);
     }
     
     public void criacaoPeoes(){
@@ -160,13 +186,21 @@ public class Jogo {
         Peao peaoVerde3 = new Peao(2);
         Peao peaoVerde4 = new Peao(2);
         
-        casas.get(52).addPeao(peaoAzul);
-        casas.get(52).addPeao(peaoAzul2);
-        casas.get(52).addPeao(peaoAzul3);
-        casas.get(52).addPeao(peaoAzul4);
-        casas.get(53).addPeao(peaoVerde);
-        casas.get(53).addPeao(peaoVerde2);
-        casas.get(53).addPeao(peaoVerde3);
-        casas.get(53).addPeao(peaoVerde4);
+        casasIniciais.get(0).addPeao(peaoAzul);
+        casasIniciais.get(0).addPeao(peaoAzul2);
+        casasIniciais.get(0).addPeao(peaoAzul3);
+        casasIniciais.get(0).addPeao(peaoAzul4);
+        casasIniciais.get(1).addPeao(peaoVerde);
+        casasIniciais.get(1).addPeao(peaoVerde2);
+        casasIniciais.get(1).addPeao(peaoVerde3);
+        casasIniciais.get(1).addPeao(peaoVerde4);
+    }
+
+    public boolean isVencedor() {
+        return vencedor;
+    }
+
+    public void setVencedor(boolean vencedor) {
+        this.vencedor = vencedor;
     }
 }

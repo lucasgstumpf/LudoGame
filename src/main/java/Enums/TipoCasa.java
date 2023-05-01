@@ -9,7 +9,7 @@ package Enums;
  * @author felipe.freitas_visag
  */
 public enum TipoCasa {
-    NORMAL, ESPECIAL, INICIAL;
+    NORMAL, ESPECIAL, INICIAL, FINAL;
     
     public static TipoCasa getTipoCasa(String dbm) {
         TipoCasa tipoCasa;
@@ -22,6 +22,9 @@ public enum TipoCasa {
                 break;
             case "inicial":
                 tipoCasa = INICIAL;
+                break;
+            case "final":
+                tipoCasa = FINAL;
                 break;
             default:
                 tipoCasa = null;
