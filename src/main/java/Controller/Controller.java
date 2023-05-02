@@ -100,7 +100,8 @@ public class Controller {
         //Move m = new Move(null, 0, null, null);
         //this.con.sendBord(m);
         this.jogoThread.interrupt();
-        System.out.println("Desistiu legal");
+        this.mf.getDesistir().setEnabled(false);
+        this.mf.getMenu().setEnabled(true);
     }
     
     public String getIP() {
