@@ -207,6 +207,86 @@ public class MainFrame extends JFrame {
     public void setIsHost(boolean isHost) {
         this.isHost = isHost;
     }   
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public void setMenuBar(JMenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+
+    public JMenu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(JMenu menu) {
+        this.menu = menu;
+    }
+
+    public JMenuItem getHost() {
+        return host;
+    }
+
+    public void setHost(boolean b) {
+        if (!b) {
+            this.setTitle("Damas");
+            host.setText("Ser host");
+            connect.setText("Conectar");
+            controller.cancelHost();
+            this.isHost = false;
+        } else {
+            this.setTitle("Buscando ...");
+            host.setText("Cancelar");
+            connect.setText("Informações");
+            isHost = true;
+            controller.host();
+        }
+    }
+
+    public JMenuItem getConnect() {
+        return connect;
+    }
+
+    public void setConnect(JMenuItem connect) {
+        this.connect = connect;
+    }
+
+    public JButton getDesistir() {
+        return desistir;
+    }
+
+    public void setDesistir(JButton desistir) {
+        this.desistir = desistir;
+    }
+
+    public JButton getRegras() {
+        return regras;
+    }
+
+    public void setRegras(JButton regras) {
+        this.regras = regras;
+    }
+
+    public JPanel getRightPanel() {
+        return rightPanel;
+    }
+
+    public void setRightPanel(JPanel rightPanel) {
+        this.rightPanel = rightPanel;
+    }
+
+    public JLabel getTurn() {
+        return turn;
+    }
+
+    public void setTurn(JLabel turn) {
+        this.turn = turn;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

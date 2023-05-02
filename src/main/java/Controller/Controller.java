@@ -5,7 +5,6 @@
 package Controller;
 
 import Connection.Conexao;
-import View.Main;
 import View.MainFrame;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -83,10 +82,10 @@ public class Controller {
 
         JOptionPane.showMessageDialog(null, "Oponente conectado!");
         this.mf.setTitle("Ludo - Em jogo");
-        this.mf.getConcede().setEnabled(true);
+        this.mf.getDesistir().setEnabled(true);
         this.mf.getMenu().setEnabled(false);
         this.mf.setHost(false);
-        this.mf.getCheckerBoard().rebuild(8, 8, 3);
+        //this.mf.getCheckerBoard().rebuild(8, 8, 3);
         this.jogo.reiniciarTabuleiro();
         //Move m = new Move(null,0,null,this.jogo.getBoard());
         if(this.con.isMeuTurno()){
@@ -94,7 +93,6 @@ public class Controller {
         }else{
             this.mf.setTurn("Vez do oponente");
         }
-        this.mf.clearLog();
         //this.mf.getCheckerBoard().repaintBoard(m);
     }
     
