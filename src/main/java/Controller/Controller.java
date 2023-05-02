@@ -6,6 +6,7 @@ package Controller;
 
 import Connection.Conexao;
 import View.Main;
+import View.MainFrame;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -37,7 +38,7 @@ public class Controller {
     /**
      * Objeto da classe MainFrame
      */
-    private Main mf;
+    private MainFrame mf;
 
     public Controller() {
         this.jogo = new Jogo();
@@ -116,11 +117,15 @@ public class Controller {
         this.con.host();
     }
 
-    void cancelHost() {
+    public void cancelHost() {
         this.con.cancelHost();
     }
     
     public void interrupt() {
         this.jogoThread.interrupt();
+    }
+    
+    public void setMF(MainFrame mf) {
+        this.mf = mf;
     }
 }
