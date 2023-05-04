@@ -149,9 +149,6 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha[14][6].setPosicao_array(posicao);
 
     }
-
-}
-
 /**
  * Creates new form UITabuleiro
  */

@@ -96,6 +96,10 @@ public class Controller {
         //this.mf.getCheckerBoard().repaintBoard(m);
     }
     
+    public int rodarDado(){
+        return jogo.rodarDado();
+    }
+    
     public void desistir() {
         //Move m = new Move(null, 0, null, null);
         //this.con.sendBord(m);

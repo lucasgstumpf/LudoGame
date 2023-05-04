@@ -40,11 +40,15 @@ public class MainFrame extends JFrame {
     
     private JButton desistir;
     private JButton regras;
+    private JButton dado;
     
     private JPanel rightPanel;
 
+    private int valorDado;
+    
     private JLabel turn;
-            
+    private JLabel mostrarDado;
+    
     private boolean isHost;
  
     public static void main(String[] args) {
@@ -70,9 +74,11 @@ public class MainFrame extends JFrame {
         this.setTitle("Ludo");
         rightPanel = new JPanel();
         rightPanel.setPreferredSize(new Dimension(500, 500)); // define o tamanho do painel da direitasssssssssssssssssssssssssss
-        createLabel();
+        createLabelTurno();
+        createLabelDado();
         createButtonDesistir();
         createButtonRegras();
+        createButtonDado();
         this.setLayout(new BorderLayout());
         rightPanel.setLayout(new FlowLayout());
 
@@ -89,6 +95,7 @@ public class MainFrame extends JFrame {
         this.add(rightPanel, BorderLayout.EAST);
         //Botao Desistir
         rightPanel.add(desistir);
+        rightPanel.add(dado);
         desistir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +107,15 @@ public class MainFrame extends JFrame {
                 }
             }
         });
+        
+        dado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                valorDado = controller.rodarDado();
+                mostrarDado.setText(Integer.toString(valorDado));
+            }
+        });
+        
         
         host.addActionListener(new ActionListener() {
             @Override
@@ -133,6 +149,15 @@ public class MainFrame extends JFrame {
         add(desistir);
     }
 
+    private void createButtonDado() {
+        this.dado = new JButton("Rodar dado");
+        rightPanel.add(dado);
+        this.dado.setFont(new Font("Dialog", Font.BOLD, 15));
+        this.dado.setEnabled(true);
+
+        add(dado);
+    }
+    
     private void createButtonRegras() {
         this.regras = new JButton("Regras");
         rightPanel.add(regras);
@@ -140,10 +165,16 @@ public class MainFrame extends JFrame {
         this.regras.setEnabled(true);
     }
     
-    private void createLabel() {
+    private void createLabelTurno() {
         this.turn = new JLabel("Turno", JLabel.CENTER);
         this.turn.setFont(new Font("Dialog", Font.BOLD, 16));
         rightPanel.add(turn);
+    }
+    
+    private void createLabelDado() {
+        this.mostrarDado = new JLabel("Valor do dado", JLabel.CENTER);
+        this.mostrarDado.setFont(new Font("Dialog", Font.BOLD, 16));
+        rightPanel.add(mostrarDado);
     }
     
     public void createMenu() {
