@@ -43,6 +43,10 @@ public class Casa {
         peoes.add(peaoRecente);        
     }
 
+    public Peao removePeaoI(){
+        return peoes.remove(0);
+    }
+    
     public TipoCasa getTipoCasa() {
         return tipoCasa;
     }
@@ -50,4 +54,8 @@ public class Casa {
     public void setTipoCasa(TipoCasa tipoCasa) {
         this.tipoCasa = tipoCasa;
     }
+
+    public static ArrayList<Peao> getPeoes() {
+        return peoes;
+    } 
 }

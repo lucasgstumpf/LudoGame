@@ -34,6 +34,8 @@ public class Controller {
      */
     private Jogo jogo;
     
+    private boolean isHost;
+    
     /**
      * Objeto da classe MainFrame
      */
@@ -43,15 +45,30 @@ public class Controller {
         this.jogo = new Jogo();
         this.con = new Conexao(this);
         this.jogo.reiniciarTabuleiro();
+        this.isHost = true;
     }
     
     public boolean isMyTurn() {
         return this.con.isMeuTurno();
     }
     
-    public boolean fimDeJogo() {
+    public void movePiece(){      
         
-        if (this.jogo.fimDeJogo()) {
+        
+        
+        fimDeJogo();
+    }
+    
+    public boolean fimDeJogo() {
+        int index;
+        
+        if (this.isHost){
+            index = 0;
+        } else {
+            index = 1;
+        }
+        
+        if (this.jogo.fimDeJogo(index)) {
             if (this.jogo.isVencedor()) {
                 JOptionPane.showMessageDialog(null, "Parabéns, você é o vencedor");
             } else {
@@ -71,6 +88,7 @@ public class Controller {
             this.con.setPort(port);
             this.con.setIp(InetAddress.getByName(ip));
             this.con.conectar();
+            this.isHost = false;
         } catch (UnknownHostException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

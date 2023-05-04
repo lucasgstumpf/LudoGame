@@ -15,6 +15,9 @@ public class Jogo {
     private final static ArrayList<Casa> casas = new ArrayList<>();
     private final static ArrayList<Casa> casasIniciais = new ArrayList<>();
     private final static ArrayList<Casa> casasFinais = new ArrayList<>();
+    private final static ArrayList<Casa> casasRetaFinalAzul = new ArrayList<>();
+    private final static ArrayList<Casa> casasRetaFinalVerde = new ArrayList<>();
+
     private boolean vencedor;
     
     public Jogo() {
@@ -33,6 +36,14 @@ public class Jogo {
         casasFinais.add(casa);
     }
      
+    public void addCasaRetaFinalAzul(Casa casa){
+        casasRetaFinalAzul.add(casa);
+    }
+    
+    public void addCasaRetaFinalVerde(Casa casa){
+        casasRetaFinalVerde.add(casa);
+    }
+    
     public int rodarDado(){
         int valorDado = 1 + (int)(Math.random()*6);
         return valorDado;
@@ -50,14 +61,34 @@ public class Jogo {
         reiniciarTabuleiro();     
     }
     
-    public boolean fimDeJogo(){
-        for(Casa casaFinal : casasFinais){
-            if(casaFinal.verificaCasaFinalCheia()){
-                this.vencedor = true;
-                return true;
-            }
+    public boolean fimDeJogo(int index){
+        if(casasFinais.get(index).verificaCasaFinalCheia()){
+            this.vencedor = true;
+            return true;
         }
         return false;
+    }
+    
+    public void mover(int casa, int valorDado, boolean isHost){
+        if(isHost){
+            if(casa == 100 && valorDado == 6){
+                Peao peao = casasIniciais.get(0).removePeaoI();
+                casas.get(0).addPeao(peao);
+            }
+            
+            int casaFutura = casa + valorDado;
+            Peao peao = casasIniciais.get(0).removePeaoI();
+            casas.get(casaFutura).addPeao(peao);
+        } else {
+            if(casa == 101 && valorDado == 6){
+                Peao peao = casasIniciais.get(1).removePeaoI();
+                casas.get(0).addPeao(peao);
+            }
+            
+            int casaFutura = casa + valorDado;
+            Peao peao = casasIniciais.get(0).removePeaoI();
+            casas.get(casaFutura).addPeao(peao);
+        }
     }
     
     public void criacaoCasas(){
@@ -113,6 +144,16 @@ public class Jogo {
         Casa casa49 = new Casa(TipoCasa.NORMAL);
         Casa casa50 = new Casa(TipoCasa.NORMAL);
         Casa casa51 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalAzul = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalAzul2 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalAzul3 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalAzul4 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalAzul5 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalVerde = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalVerde2 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalVerde3 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalVerde4 = new Casa(TipoCasa.NORMAL);
+        Casa casaRetaFinalVerde5 = new Casa(TipoCasa.NORMAL);
         Casa casaInicialAzul = new Casa(TipoCasa.INICIAL);
         Casa casaInicialVerde = new Casa(TipoCasa.INICIAL);
         Casa casaFinalAzul = new Casa(TipoCasa.FINAL);
@@ -174,6 +215,16 @@ public class Jogo {
         addCasaInicias(casaInicialVerde);
         addCasaFinais(casaFinalAzul);
         addCasaFinais(casaFinalVerde);
+        addCasaRetaFinalAzul(casaRetaFinalAzul);
+        addCasaRetaFinalAzul(casaRetaFinalAzul2);
+        addCasaRetaFinalAzul(casaRetaFinalAzul3);
+        addCasaRetaFinalAzul(casaRetaFinalAzul4);
+        addCasaRetaFinalAzul(casaRetaFinalAzul5);
+        addCasaRetaFinalVerde(casaRetaFinalVerde);
+        addCasaRetaFinalVerde(casaRetaFinalVerde2);
+        addCasaRetaFinalVerde(casaRetaFinalVerde3);
+        addCasaRetaFinalVerde(casaRetaFinalVerde4);
+        addCasaRetaFinalVerde(casaRetaFinalVerde5);
     }
     
     public void criacaoPeoes(){

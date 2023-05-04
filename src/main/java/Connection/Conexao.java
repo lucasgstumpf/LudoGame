@@ -106,6 +106,7 @@ public class Conexao implements Runnable {
             this.port = this.servSoc.getLocalPort();
             this.soc = this.servSoc.accept();
             this.servSoc.close();
+            System.out.println("Sou o host");
             this.controller.jogadorEncontrado();
         } catch (IOException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
