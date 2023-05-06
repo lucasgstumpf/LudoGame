@@ -37,6 +37,8 @@ public class Controller {
     
     private boolean isHost;
     
+    private int valorDado;
+    
     /**
      * Objeto da classe MainFrame
      */
@@ -54,6 +56,7 @@ public class Controller {
     }
     
     public Integer movePiece(Movimento movimento){  
+        movimento.setValorDado(valorDado);
         Integer valorCasaAtual = null;
         if (this.con.isMeuTurno()){
             this.con.sendBord(movimento);
@@ -136,7 +139,8 @@ public class Controller {
     }
     
     public int rodarDado(){
-        return jogo.rodarDado();
+        setValorDado(jogo.rodarDado());
+        return valorDado;
     }
     
     public void desistir() {
@@ -170,4 +174,18 @@ public class Controller {
     public void setMF(MainFrame mf) {
         this.mf = mf;
     }
+
+    public int getValorDado() {
+        return valorDado;
+    }
+
+    public void setValorDado(int valorDado) {
+        this.valorDado = valorDado;
+    }
+
+    public boolean isIsHost() {
+        return isHost;
+    }
+    
+    
 }

@@ -4,14 +4,17 @@
  */
 package View;
 
+import Controller.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import src.Model.Movimento;
 
 /**
  *
@@ -21,7 +24,7 @@ public class UITabuleiro extends javax.swing.JPanel {
 
     private UICasinha[][] casinha;
 
-    public UITabuleiro() {
+    public UITabuleiro(Controller controller) {
         setLayout(new GridLayout(15, 15));
         casinha = new UICasinha[15][15];
         for (int i = 0; i < 15; i++) {
@@ -32,77 +35,92 @@ public class UITabuleiro extends javax.swing.JPanel {
                 
                 casinha[i][j] = new UICasinha();
 
-                //PARTE VERDE
+                //PARTE y
                 if (i < 6 & j < 6) {
-                    casinha[i][j].setCor(Color.GREEN);
+                    casinha[i][j].setCor(Color.YELLOW);
                 }
                 if (j < 6 & j > 0 & i == 7) {
-                    casinha[i][j].setCor(Color.GREEN);
+                    casinha[i][j].setCor(Color.YELLOW);
                 }
                 if (j == 1 & i == 6) {
-                    casinha[i][j].setCor(Color.GREEN);
+                    casinha[i][j].setCor(Color.YELLOW);
                 }
 
                 //PARTE VERMELHO
                 if (i > 8 & j < 6) {
-                    casinha[i][j].setCor(Color.RED);
+                    casinha[i][j].setCor(Color.BLUE);
                 }
                 if (i < 14 & 8 < i & j == 7) {
-                    casinha[i][j].setCor(Color.RED);
+                    casinha[i][j].setCor(Color.BLUE);
                 }
                 if (j == 6 & i == 13) {
-                    casinha[i][j].setCor(Color.RED);
+                    casinha[i][j].setCor(Color.BLUE);
                 }
 
                 //PARTE AZUL
                 if (i > 8 & j > 8) {
-                    casinha[i][j].setCor(Color.BLUE);
+                    casinha[i][j].setCor(Color.RED);
                 }
                 if (j > 8 & j < 14 & i == 7) {
-                    casinha[i][j].setCor(Color.BLUE);
+                    casinha[i][j].setCor(Color.RED);
                 }
                 if (j == 13 & i == 8) {
-                    casinha[i][j].setCor(Color.BLUE);
+                    casinha[i][j].setCor(Color.RED);
                 }
 
-                //PARTE AMARELA
+                //PARTE GREEN
                 if (i < 6 & j > 8) {
-                    casinha[i][j].setCor(Color.YELLOW);
+                    casinha[i][j].setCor(Color.GREEN);
                 }
                 if (i < 6 & 0 < i & j == 7) {
-                    casinha[i][j].setCor(Color.YELLOW);
+                    casinha[i][j].setCor(Color.GREEN);
                 }
                 if (j == 8 & i == 1) {
-                    casinha[i][j].setCor(Color.YELLOW);
+                    casinha[i][j].setCor(Color.GREEN);
                 }
                 
                 if ((i == 1 & j == 1) || (i == 1 & j == 4) || (i == 4 & j == 1) || (i == 4 & j == 4) )  {
                     casinha[i][j].setCor(Color.WHITE);
-                    casinha[i][j].setCorPiao(Color.GREEN);
                 }
                 
                 if ((i == 1 & j == 10) || (i == 1 & j == 13)  ||(i == 4 & j == 10) || (i == 4 & j == 13) )  {
                     casinha[i][j].setCor(Color.WHITE);
                     
-                    casinha[i][j].setCorPiao(Color.YELLOW);
+                    casinha[i][j].setImagem(2);
                 }
                 
                 if ((i == 10 & j == 1) ||(i == 10 & j == 4) || (i == 13 & j == 1) ||(i == 13 & j == 4)  )  {
                     casinha[i][j].setCor(Color.WHITE);
-                    casinha[i][j].setCorPiao(Color.RED);
+                    casinha[i][j].setImagem(1);
                 }
                 
                 if ((i == 10 & j == 10) || (i == 10 & j == 13) ||(i == 13 & j == 10) || (i == 13 & j == 13)  )  {
                     casinha[i][j].setCor(Color.WHITE);
-                    casinha[i][j].setCorPiao(Color.BLUE);
+                    
                 }
                 
                 // cria uma instância de ActionListener que chama o método desejado em UICasinha
+                //FELIPE AQUI CLICA NO BOTAO
                 ActionListener listener = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int pos = casinha[finalI][finalJ].getPosicao_array();
-                        System.out.println(pos);
+                        if(true){
+                            
+                            int posAntiga = casinha[finalI][finalJ].getPosicao_array();
+                            Movimento movimento = new Movimento(null,posAntiga,controller.isMyTurn());
+                            int posNova =controller.movePiece(movimento);
+                            System.out.println(posAntiga);
+                            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
+                            ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+                            if(controller.isIsHost()){
+                                pintaCasa(pairPosicaoAntiga.get(0),pairPosicaoAntiga.get(1),0);
+                                pintaCasa(pairPosicaoNova.get(0),pairPosicaoNova.get(1),1);
+                                
+                            }else{
+                                pintaCasa(pairPosicaoAntiga.get(0),pairPosicaoAntiga.get(1),0);
+                                pintaCasa(pairPosicaoNova.get(0),pairPosicaoNova.get(1),2);
+                            }
+                        }
                         
                     }
                 };
@@ -113,12 +131,7 @@ public class UITabuleiro extends javax.swing.JPanel {
             }
         }
         
-        casinha[0][0].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                    }
-                });
+      
         
         
         
@@ -177,36 +190,46 @@ public class UITabuleiro extends javax.swing.JPanel {
             casinha[i][7].setPosicao_array(posicao);
             posicao++;
         }
+        casinha[10][1].setPosicao_array(100);
+        casinha[10][4].setPosicao_array(101);
         
-        for(int i=9;i<15;i++){
-            for(int j=0;j<6;j++){
-                casinha[i][j].setPosicao_array(100);
-      
-            }   
-        }
+        casinha[13][1].setPosicao_array(102);
+        casinha[13][4].setPosicao_array(103);
         
-        for(int i=0;i<6;i++){
-            for(int j=9;j<15;j++){
-                casinha[i][j].setPosicao_array(101);
-      
-            }   
-        }
+        casinha[1][10].setPosicao_array(110);
+        casinha[1][13].setPosicao_array(111);
+        
+        casinha[4][10].setPosicao_array(112);
+        casinha[4][13].setPosicao_array(113);
           
     }
     
-    private void pegaPosicaoCasinha(int busca) {
+    public ArrayList<Integer> pegaPosicaoCasinha(int busca) {
             for (int i = 0; i < 15; i++) {
                 for (int j = 0; j < 15; j++) {
                     int posCasinha = casinha[i][j].getPosicao_array();
                     if(posCasinha == busca){
                         System.out.println("POSICAO I: " + i);
                         System.out.println("POSICAO J: " + j);
+                        ArrayList<Integer> pairPosicao;
+                        pairPosicao = new ArrayList<>();
+                        pairPosicao.add(i);
+                        pairPosicao.add(j);
+                        return pairPosicao;
                         
                     }
                     
                 }
             }
-        }
+            return null;
+        };
+    
+    
+    public void pintaCasa(int i,int j, int cor){
+        casinha[i][j].setImagem(cor);
+    }
+    
+    
 
     public UICasinha[][] getCasinha() {
         return casinha;

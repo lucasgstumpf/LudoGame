@@ -65,11 +65,13 @@ public class MainFrame extends JFrame {
     }
     
     public MainFrame() {
-        UITabuleiro tabuleiro = new UITabuleiro();
-
+        
+        
         controller = new Controller();
         controller.setMF(this);
-
+        
+        UITabuleiro tabuleiro = new UITabuleiro(controller);
+        
         createMenu();
         this.setTitle("Ludo");
         rightPanel = new JPanel();
