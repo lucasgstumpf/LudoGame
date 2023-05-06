@@ -15,6 +15,7 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import src.Model.Movimento;
 
 /**
  *
@@ -113,22 +114,31 @@ public class Conexao implements Runnable {
         }
     }
 
-    /**
-     * Envia o tabuleiro com a jogada do jogador
-     * 
-     * @param move Move
-     aa
-     
-    public void sendBord(Move move) {
+         
+    public void sendBord(Movimento movimento) {
         try {
-            this.myTurn = false;
+            this.meuTurno = false;
             ObjectOutputStream out = new ObjectOutputStream(this.soc.getOutputStream());
-            out.writeObject(move);
+            out.writeObject(movimento);
         } catch (IOException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
      
+    private void recieveBoard() {
+        try {
+            ObjectInputStream in = new ObjectInputStream(this.soc.getInputStream());
+            Movimento move = (Movimento) in.readObject();
+            this.controller.setMove(move);
+        } catch (IOException ex) {
+            if (ex instanceof SocketException) {
+                this.controller.interrupt();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * Recebe o tabuleiro com a jogada do oponente
      

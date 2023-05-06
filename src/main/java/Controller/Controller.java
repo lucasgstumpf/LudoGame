@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import src.Model.Jogo;
+import src.Model.Movimento;
 
 /**
  *
@@ -52,11 +53,30 @@ public class Controller {
         return this.con.isMeuTurno();
     }
     
-    public void movePiece(){      
-        
-        
+    public void movePiece(Movimento movimento){      
+        if (this.con.isMeuTurno()){
+            this.con.sendBord(movimento);
+            this.jogo.mover(movimento);
+            this.mf.setTurn("Vez do oponente");
+        }
         
         fimDeJogo();
+    }
+    
+    public void setMove(Movimento movimento) {
+        String str;
+        //Verifica desistência
+        if (movimento.getValorDado() == null) {
+            JOptionPane.showMessageDialog(null, "Seu Oponente Desistiu !");
+            this.mf.setTitle("Damas");
+            this.mf.getDesistir().setEnabled(false);
+            this.mf.getMenu().setEnabled(true);
+            this.con.disconnect();
+            this.con.setMeuTurno(false);
+            return;
+        }
+        //this.jogo.mover(movimento);
+        this.mf.setTurn("Sua vez!");
     }
     
     public boolean fimDeJogo() {
@@ -119,8 +139,8 @@ public class Controller {
     }
     
     public void desistir() {
-        //Move m = new Move(null, 0, null, null);
-        //this.con.sendBord(m);
+        Movimento movimento = new Movimento(null, null, null);
+        this.con.sendBord(movimento);
         this.jogoThread.interrupt();
         this.mf.getDesistir().setEnabled(false);
         this.mf.getMenu().setEnabled(true);

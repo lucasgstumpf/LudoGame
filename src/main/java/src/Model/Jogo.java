@@ -69,23 +69,26 @@ public class Jogo {
         return false;
     }
     
-    public void mover(int casa, int valorDado, boolean isHost){
-        if(isHost){
-            if(casa == 100 && valorDado == 6){
+    public void mover(Movimento movimento){
+        int valorDado = movimento.getValorDado();
+        int numeroCasa = movimento.getNumeroCasa();
+        
+        if(movimento.isIsHost()){
+            if(numeroCasa == 100 && valorDado == 6){
                 Peao peao = casasIniciais.get(0).removePeaoI();
                 casas.get(0).addPeao(peao);
             }
             
-            int casaFutura = casa + valorDado;
+            int casaFutura = numeroCasa + valorDado;
             Peao peao = casasIniciais.get(0).removePeaoI();
             casas.get(casaFutura).addPeao(peao);
         } else {
-            if(casa == 101 && valorDado == 6){
+            if(numeroCasa == 101 && valorDado == 6){
                 Peao peao = casasIniciais.get(1).removePeaoI();
                 casas.get(0).addPeao(peao);
             }
             
-            int casaFutura = casa + valorDado;
+            int casaFutura = numeroCasa + valorDado;
             Peao peao = casasIniciais.get(0).removePeaoI();
             casas.get(casaFutura).addPeao(peao);
         }
