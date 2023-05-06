@@ -6,8 +6,10 @@ package Controller;
 
 import Connection.Conexao;
 import View.MainFrame;
+import View.UITabuleiro;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,26 +21,26 @@ import src.Model.Movimento;
  * @author felipe.freitas_visag
  */
 public class Controller {
-    
-     /**
+
+    /**
      * Objeto da classe Connection
      */
     private Conexao con;
-    
+
     /**
      * Thread para receber a jogada do oponente
      */
     private Thread jogoThread;
-    
+
     /**
      * Objeto da classe Game
      */
     private Jogo jogo;
-    
+
     private boolean isHost;
-    
+
     private int valorDado;
-    
+
     /**
      * Objeto da classe MainFrame
      */
@@ -50,24 +52,24 @@ public class Controller {
         this.jogo.reiniciarTabuleiro();
         this.isHost = true;
     }
-    
+
     public boolean isMyTurn() {
         return this.con.isMeuTurno();
     }
-    
-    public Integer movePiece(Movimento movimento){  
+
+    public Integer movePiece(Movimento movimento) {
         movimento.setValorDado(valorDado);
         Integer valorCasaAtual = null;
-        if (this.con.isMeuTurno()){
+        if (this.con.isMeuTurno()) {
             this.con.sendBord(movimento);
             valorCasaAtual = this.jogo.mover(movimento);
             this.mf.setTurn("Vez do oponente");
         }
-        
+
         fimDeJogo();
         return valorCasaAtual;
     }
-    
+
     public void setMove(Movimento movimento) {
         //Verifica desistência
         if (movimento.getValorDado() == null) {
@@ -79,19 +81,20 @@ public class Controller {
             this.con.setMeuTurno(false);
             return;
         }
-        Integer valorCasaAtual = this.jogo.mover(movimento);
+        
+        this.mf.receiveMovimento(movimento);
         this.mf.setTurn("Sua vez!");
     }
-    
+
     public boolean fimDeJogo() {
         int index;
-        
-        if (this.isHost){
+
+        if (this.isHost) {
             index = 0;
         } else {
             index = 1;
         }
-        
+
         if (this.jogo.fimDeJogo(index)) {
             if (this.jogo.isVencedor()) {
                 JOptionPane.showMessageDialog(null, "Parabéns, você é o vencedor");
@@ -105,20 +108,18 @@ public class Controller {
         }
         return false;
     }
-    
+
     public void conectar(String ip, int port) {
         try {
             this.con.setPort(port);
             this.con.setIp(InetAddress.getByName(ip));
-            System.out.println(port);
-            System.out.println(ip);
             this.con.conectar();
             this.isHost = false;
         } catch (UnknownHostException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void jogadorEncontrado() {
         this.jogoThread = new Thread(this.con);
         this.jogoThread.start();
@@ -128,21 +129,19 @@ public class Controller {
         this.mf.getDesistir().setEnabled(true);
         this.mf.getMenu().setEnabled(false);
         this.mf.setHost(false);
-        //this.mf.getCheckerBoard().rebuild(8, 8, 3);
         this.jogo.reiniciarTabuleiro();
-        //Move m = new Move(null,0,null,this.jogo.getBoard());
-        if(this.con.isMeuTurno()){
+        if (this.con.isMeuTurno()) {
             this.mf.setTurn("Sua vez!");
-        }else{
+        } else {
             this.mf.setTurn("Vez do oponente");
         }
     }
-    
-    public int rodarDado(){
+
+    public int rodarDado() {
         setValorDado(jogo.rodarDado());
         return valorDado;
     }
-    
+
     public void desistir() {
         Movimento movimento = new Movimento(null, null, null);
         this.con.sendBord(movimento);
@@ -150,15 +149,15 @@ public class Controller {
         this.mf.getDesistir().setEnabled(false);
         this.mf.getMenu().setEnabled(true);
     }
-    
+
     public String getIP() {
         return this.con.getIp().getHostAddress();
     }
 
     public String getPort() {
         return Integer.toString(this.con.getPort());
-    }    
-    
+    }
+
     public void host() {
         this.con.host();
     }
@@ -166,11 +165,11 @@ public class Controller {
     public void cancelHost() {
         this.con.cancelHost();
     }
-    
+
     public void interrupt() {
         this.jogoThread.interrupt();
     }
-    
+
     public void setMF(MainFrame mf) {
         this.mf = mf;
     }
@@ -186,6 +185,5 @@ public class Controller {
     public boolean isIsHost() {
         return isHost;
     }
-    
-    
+
 }

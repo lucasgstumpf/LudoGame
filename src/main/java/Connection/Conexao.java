@@ -90,7 +90,7 @@ public class Conexao implements Runnable {
     @Override
     public void run() {
         while (true) {
-            //reiniciarTabuleiro();
+            recieveBoard();
             meuTurno = true;
 
         }
@@ -107,7 +107,6 @@ public class Conexao implements Runnable {
             this.port = this.servSoc.getLocalPort();
             this.soc = this.servSoc.accept();
             this.servSoc.close();
-            System.out.println("Sou o host");
             this.controller.jogadorEncontrado();
         } catch (IOException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,34 +137,14 @@ public class Conexao implements Runnable {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    /**
-     * Recebe o tabuleiro com a jogada do oponente
-     
-    private void reiniciarTabuleiro() {
-        try {
-            ObjectInputStream in = new ObjectInputStream(this.soc.getInputStream());
-            Move move = (Move) in.readObject();
-            this.controller.setMove(move);
-        } catch (IOException ex) {
-            if (ex instanceof SocketException) {
-                this.controller.interrupt();
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     /**
      * Conecta com o host
      */
     public void conectar() {
         try {
-            System.out.println("Erro 1");
             this.meuTurno = false;
-            System.out.println("Erro 2");
             this.soc = new Socket(ip, port);
-            System.out.println(port);
             this.controller.jogadorEncontrado();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Falha na conexão!");

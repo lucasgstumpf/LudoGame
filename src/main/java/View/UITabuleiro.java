@@ -29,10 +29,10 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha = new UICasinha[15][15];
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                
+
                 final int finalI = i;
                 final int finalJ = j;
-                
+
                 casinha[i][j] = new UICasinha();
 
                 //PARTE y
@@ -78,63 +78,44 @@ public class UITabuleiro extends javax.swing.JPanel {
                 if (j == 8 & i == 1) {
                     casinha[i][j].setCor(Color.GREEN);
                 }
-                
-                if ((i == 1 & j == 1) || (i == 1 & j == 4) || (i == 4 & j == 1) || (i == 4 & j == 4) )  {
+
+                if ((i == 1 & j == 1) || (i == 1 & j == 4) || (i == 4 & j == 1) || (i == 4 & j == 4)) {
                     casinha[i][j].setCor(Color.WHITE);
                 }
-                
-                if ((i == 1 & j == 10) || (i == 1 & j == 13)  ||(i == 4 & j == 10) || (i == 4 & j == 13) )  {
+
+                if ((i == 1 & j == 10) || (i == 1 & j == 13) || (i == 4 & j == 10) || (i == 4 & j == 13)) {
                     casinha[i][j].setCor(Color.WHITE);
-                    
+
                     casinha[i][j].setImagem(2);
                 }
-                
-                if ((i == 10 & j == 1) ||(i == 10 & j == 4) || (i == 13 & j == 1) ||(i == 13 & j == 4)  )  {
+
+                if ((i == 10 & j == 1) || (i == 10 & j == 4) || (i == 13 & j == 1) || (i == 13 & j == 4)) {
                     casinha[i][j].setCor(Color.WHITE);
                     casinha[i][j].setImagem(1);
                 }
-                
-                if ((i == 10 & j == 10) || (i == 10 & j == 13) ||(i == 13 & j == 10) || (i == 13 & j == 13)  )  {
+
+                if ((i == 10 & j == 10) || (i == 10 & j == 13) || (i == 13 & j == 10) || (i == 13 & j == 13)) {
                     casinha[i][j].setCor(Color.WHITE);
-                    
+
                 }
-                
+
                 // cria uma instância de ActionListener que chama o método desejado em UICasinha
                 //FELIPE AQUI CLICA NO BOTAO
                 ActionListener listener = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if(true){
-                            
-                            int posAntiga = casinha[finalI][finalJ].getPosicao_array();
-                            Movimento movimento = new Movimento(null,posAntiga,controller.isMyTurn());
-                            int posNova =controller.movePiece(movimento);
-                            System.out.println(posAntiga);
-                            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
-                            ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
-                            if(controller.isIsHost()){
-                                pintaCasa(pairPosicaoAntiga.get(0),pairPosicaoAntiga.get(1),0);
-                                pintaCasa(pairPosicaoNova.get(0),pairPosicaoNova.get(1),1);
-                                
-                            }else{
-                                pintaCasa(pairPosicaoAntiga.get(0),pairPosicaoAntiga.get(1),0);
-                                pintaCasa(pairPosicaoNova.get(0),pairPosicaoNova.get(1),2);
-                            }
+                        if (controller.isMyTurn()) {
+                            actionButtonCasinhas(finalI, finalJ, controller);
                         }
-                        
+
                     }
                 };
-                
-                
+
                 casinha[i][j].addActionListener(listener);
                 add(casinha[i][j]);
             }
         }
-        
-      
-        
-        
-        
+
         int posicao = 0;
         for (int i = 13; i > 8; i--) {
             casinha[i][6].setPosicao_array(posicao);
@@ -177,9 +158,9 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha[14][7].setPosicao_array(posicao);
         posicao++;
         casinha[14][6].setPosicao_array(posicao);
-        
+
         posicao = 70;
-        
+
         for (int i = 13; i > 7; i--) {
             System.out.println("Passou");
             casinha[i][7].setPosicao_array(posicao);
@@ -192,44 +173,75 @@ public class UITabuleiro extends javax.swing.JPanel {
         }
         casinha[10][1].setPosicao_array(100);
         casinha[10][4].setPosicao_array(101);
-        
+
         casinha[13][1].setPosicao_array(102);
         casinha[13][4].setPosicao_array(103);
-        
+
         casinha[1][10].setPosicao_array(110);
         casinha[1][13].setPosicao_array(111);
-        
+
         casinha[4][10].setPosicao_array(112);
         casinha[4][13].setPosicao_array(113);
-          
+
+    }
+
+    public void actionButtonCasinhas(int finalI, int finalJ, Controller controller) {
+        int posAntiga = casinha[finalI][finalJ].getPosicao_array();
+        Movimento movimento = new Movimento(null, posAntiga, controller.isMyTurn());
+        Integer posNova = controller.movePiece(movimento);
+        System.out.println(posAntiga);
+        ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
+        ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+        if (controller.isIsHost()) {
+            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+        } else {
+            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+        }
+    }
+
+    public void receiveMovimento(Movimento movimento, Controller controller){
+        Integer posNova = controller.movePiece(movimento);
+        ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(movimento.getNumeroCasa());
+        ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+        if (controller.isIsHost()) {
+            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+        } else {
+            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+        }
     }
     
     public ArrayList<Integer> pegaPosicaoCasinha(int busca) {
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 15; j++) {
-                    int posCasinha = casinha[i][j].getPosicao_array();
-                    if(posCasinha == busca){
-                        System.out.println("POSICAO I: " + i);
-                        System.out.println("POSICAO J: " + j);
-                        ArrayList<Integer> pairPosicao;
-                        pairPosicao = new ArrayList<>();
-                        pairPosicao.add(i);
-                        pairPosicao.add(j);
-                        return pairPosicao;
-                        
-                    }
-                    
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                int posCasinha = casinha[i][j].getPosicao_array();
+                if (posCasinha == busca) {
+                    System.out.println("POSICAO I: " + i);
+                    System.out.println("POSICAO J: " + j);
+                    ArrayList<Integer> pairPosicao;
+                    pairPosicao = new ArrayList<>();
+                    pairPosicao.add(i);
+                    pairPosicao.add(j);
+                    return pairPosicao;
+
                 }
+
             }
-            return null;
-        };
+        }
+        return null;
+    }
+
+    ;
     
     
-    public void pintaCasa(int i,int j, int cor){
+    public void pintaCasa(int i, int j, int cor) {
         casinha[i][j].setImagem(cor);
     }
-    
-    
 
     public UICasinha[][] getCasinha() {
         return casinha;
@@ -238,15 +250,16 @@ public class UITabuleiro extends javax.swing.JPanel {
     public void setCasinha(UICasinha[][] casinha) {
         this.casinha = casinha;
     }
-/**
- * Creates new form UITabuleiro
- */
-/**
- * This method is called from within the constructor to initialize the form.
- * WARNING: Do NOT modify this code. The content of this method is always
- * regenerated by the Form Editor.
- */
-@SuppressWarnings("unchecked")
+
+    /**
+     * Creates new form UITabuleiro
+     */
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

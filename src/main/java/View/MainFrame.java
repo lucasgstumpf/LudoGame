@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import src.Model.Movimento;
 
 /**
  *
@@ -37,6 +38,8 @@ public class MainFrame extends JFrame {
     
     private JMenuItem host;
     private JMenuItem connect;
+    
+    private UITabuleiro tabuleiro;
     
     private JButton desistir;
     private JButton regras;
@@ -70,7 +73,7 @@ public class MainFrame extends JFrame {
         controller = new Controller();
         controller.setMF(this);
         
-        UITabuleiro tabuleiro = new UITabuleiro(controller);
+        tabuleiro = new UITabuleiro(controller);
         
         createMenu();
         this.setTitle("Ludo");
@@ -140,6 +143,18 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+    }
+
+    public UITabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(UITabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+    
+    public void receiveMovimento(Movimento movimento){
+        tabuleiro.receiveMovimento(movimento, controller);
     }
     
     private void createButtonDesistir() {
