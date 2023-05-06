@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -32,6 +33,11 @@ public class UICasinha extends JButton {
             g2d.dispose();
         }
     }
+    
+    public void addListener(ActionListener listener) {
+    this.addActionListener(listener);
+}
+
 
     public Color getCorPiao() {
         return corPiao;

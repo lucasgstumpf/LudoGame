@@ -6,9 +6,11 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -24,6 +26,10 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha = new UICasinha[15][15];
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
+                
+                final int finalI = i;
+                final int finalJ = j;
+                
                 casinha[i][j] = new UICasinha();
 
                 //PARTE VERDE
@@ -91,7 +97,18 @@ public class UITabuleiro extends javax.swing.JPanel {
                     casinha[i][j].setCorPiao(Color.BLUE);
                 }
                 
-
+                // cria uma instância de ActionListener que chama o método desejado em UICasinha
+                ActionListener listener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int pos = casinha[finalI][finalJ].getPosicao_array();
+                        System.out.println(pos);
+                        
+                    }
+                };
+                
+                
+                casinha[i][j].addActionListener(listener);
                 add(casinha[i][j]);
             }
         }
@@ -147,7 +164,56 @@ public class UITabuleiro extends javax.swing.JPanel {
         casinha[14][7].setPosicao_array(posicao);
         posicao++;
         casinha[14][6].setPosicao_array(posicao);
+        
+        posicao = 70;
+        
+        for (int i = 13; i > 7; i--) {
+            System.out.println("Passou");
+            casinha[i][7].setPosicao_array(posicao);
+            posicao++;
+        }
+        posicao = 80;
+        for (int i = 1; i < 7; i++) {
+            casinha[i][7].setPosicao_array(posicao);
+            posicao++;
+        }
+        
+        for(int i=9;i<15;i++){
+            for(int j=0;j<6;j++){
+                casinha[i][j].setPosicao_array(100);
+      
+            }   
+        }
+        
+        for(int i=0;i<6;i++){
+            for(int j=9;j<15;j++){
+                casinha[i][j].setPosicao_array(101);
+      
+            }   
+        }
+          
+    }
+    
+    private void pegaPosicaoCasinha(int busca) {
+            for (int i = 0; i < 15; i++) {
+                for (int j = 0; j < 15; j++) {
+                    int posCasinha = casinha[i][j].getPosicao_array();
+                    if(posCasinha == busca){
+                        System.out.println("POSICAO I: " + i);
+                        System.out.println("POSICAO J: " + j);
+                        
+                    }
+                    
+                }
+            }
+        }
 
+    public UICasinha[][] getCasinha() {
+        return casinha;
+    }
+
+    public void setCasinha(UICasinha[][] casinha) {
+        this.casinha = casinha;
     }
 /**
  * Creates new form UITabuleiro
