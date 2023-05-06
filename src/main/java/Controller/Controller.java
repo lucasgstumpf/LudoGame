@@ -53,18 +53,19 @@ public class Controller {
         return this.con.isMeuTurno();
     }
     
-    public void movePiece(Movimento movimento){      
+    public Integer movePiece(Movimento movimento){  
+        Integer valorCasaAtual = null;
         if (this.con.isMeuTurno()){
             this.con.sendBord(movimento);
-            this.jogo.mover(movimento);
+            valorCasaAtual = this.jogo.mover(movimento);
             this.mf.setTurn("Vez do oponente");
         }
         
         fimDeJogo();
+        return valorCasaAtual;
     }
     
     public void setMove(Movimento movimento) {
-        String str;
         //Verifica desistência
         if (movimento.getValorDado() == null) {
             JOptionPane.showMessageDialog(null, "Seu Oponente Desistiu !");
@@ -75,7 +76,7 @@ public class Controller {
             this.con.setMeuTurno(false);
             return;
         }
-        //this.jogo.mover(movimento);
+        Integer valorCasaAtual = this.jogo.mover(movimento);
         this.mf.setTurn("Sua vez!");
     }
     
@@ -97,7 +98,6 @@ public class Controller {
 
             this.con.disconnect();
             this.jogoThread.interrupt();
-            //this.mf.getMenu().setEnabled(true);
             return true;
         }
         return false;
@@ -107,6 +107,8 @@ public class Controller {
         try {
             this.con.setPort(port);
             this.con.setIp(InetAddress.getByName(ip));
+            System.out.println(port);
+            System.out.println(ip);
             this.con.conectar();
             this.isHost = false;
         } catch (UnknownHostException ex) {
@@ -131,7 +133,6 @@ public class Controller {
         }else{
             this.mf.setTurn("Vez do oponente");
         }
-        //this.mf.getCheckerBoard().repaintBoard(m);
     }
     
     public int rodarDado(){

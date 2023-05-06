@@ -69,7 +69,7 @@ public class Jogo {
         return false;
     }
     
-    public void mover(Movimento movimento){
+    public Integer mover(Movimento movimento){
         int valorDado = movimento.getValorDado();
         int numeroCasa = movimento.getNumeroCasa();
         
@@ -77,20 +77,69 @@ public class Jogo {
             if(numeroCasa == 100 && valorDado == 6){
                 Peao peao = casasIniciais.get(0).removePeaoI();
                 casas.get(0).addPeao(peao);
+                return 0;
+            } else if (numeroCasa == 100 && valorDado != 6){
+                return null;
             }
             
             int casaFutura = numeroCasa + valorDado;
-            Peao peao = casasIniciais.get(0).removePeaoI();
-            casas.get(casaFutura).addPeao(peao);
+            if(numeroCasa > 69){
+                if (casaFutura > 75){
+                    return null;
+                } else if (casaFutura == 75){
+                    Peao peao = casasRetaFinalAzul.get(numeroCasa).removePeaoI();
+                    casasFinais.get(0).addPeao(peao);
+                    return casaFutura;
+                }{
+                    Peao peao = casasRetaFinalAzul.get(numeroCasa).removePeaoI();
+                    casasRetaFinalAzul.get(casaFutura).addPeao(peao);
+                    return casaFutura;
+                }
+            } else if (casaFutura > 50){
+                Peao peao = casas.get(numeroCasa).removePeaoI();
+                casasRetaFinalAzul.get(70 + (casaFutura - 51)).addPeao(peao);
+                return 70 + (casaFutura - 51);
+            } else {
+                Peao peao = casas.get(numeroCasa).removePeaoI();
+                casas.get(casaFutura).addPeao(peao);
+                    return casaFutura;     
+            }
         } else {
             if(numeroCasa == 101 && valorDado == 6){
                 Peao peao = casasIniciais.get(1).removePeaoI();
                 casas.get(0).addPeao(peao);
+                return 26;
+            } else if (numeroCasa == 101 && valorDado != 6){
+                return null;
             }
             
             int casaFutura = numeroCasa + valorDado;
-            Peao peao = casasIniciais.get(0).removePeaoI();
-            casas.get(casaFutura).addPeao(peao);
+
+            if(numeroCasa > 79){
+                if (casaFutura > 85){
+                    return null;
+                } else if (casaFutura == 85){
+                    Peao peao = casasRetaFinalVerde.get(numeroCasa).removePeaoI();
+                    casasFinais.get(1).addPeao(peao);
+                    return casaFutura;
+                }{
+                    Peao peao = casasRetaFinalVerde.get(numeroCasa).removePeaoI();
+                    casasRetaFinalVerde.get(casaFutura).addPeao(peao);
+                    return casaFutura;
+                }
+            } else if(casaFutura > 51){
+                Peao peao = casasIniciais.get(numeroCasa).removePeaoI();
+                casas.get(casaFutura - 52).addPeao(peao);
+                return casaFutura - 52;
+            } else if (casaFutura > 24 ) {
+                Peao peao = casas.get(numeroCasa).removePeaoI();
+                casasRetaFinalVerde.get(80 + (casaFutura - 25)).addPeao(peao);
+                return 80 + (casaFutura - 25);
+            } else {
+                Peao peao = casas.get(numeroCasa).removePeaoI();
+                casas.get(casaFutura).addPeao(peao);
+                return casaFutura;
+            }
         }
     }
     

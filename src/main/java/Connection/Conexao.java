@@ -161,8 +161,11 @@ public class Conexao implements Runnable {
      */
     public void conectar() {
         try {
+            System.out.println("Erro 1");
             this.meuTurno = false;
+            System.out.println("Erro 2");
             this.soc = new Socket(ip, port);
+            System.out.println(port);
             this.controller.jogadorEncontrado();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Falha na conexão!");

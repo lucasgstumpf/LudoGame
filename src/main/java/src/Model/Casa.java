@@ -22,10 +22,7 @@ public class Casa {
     }
     
     public boolean verificaCasaFinalCheia(){
-        if(peoes.size() == 4){
-            return true;
-        }
-        return false;
+        return peoes.size() == 4;
     }
     
     public void addPeao(Peao peaoRecente){
