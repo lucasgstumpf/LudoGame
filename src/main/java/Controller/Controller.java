@@ -58,12 +58,16 @@ public class Controller {
     }
 
     public Integer movePiece(Movimento movimento) {
-        movimento.setValorDado(valorDado);
+        if (movimento.getValorDado() == null) {
+            movimento.setValorDado(valorDado);
+        }  
         Integer valorCasaAtual = null;
         if (this.con.isMeuTurno()) {
             this.con.sendBord(movimento);
             valorCasaAtual = this.jogo.mover(movimento);
             this.mf.setTurn("Vez do oponente");
+        } else {
+            valorCasaAtual = this.jogo.mover(movimento);
         }
 
         fimDeJogo();
@@ -74,7 +78,7 @@ public class Controller {
         //Verifica desistência
         if (movimento.getValorDado() == null) {
             JOptionPane.showMessageDialog(null, "Seu Oponente Desistiu !");
-            this.mf.setTitle("Damas");
+            this.mf.setTitle("Ludo");
             this.mf.getDesistir().setEnabled(false);
             this.mf.getMenu().setEnabled(true);
             this.con.disconnect();
