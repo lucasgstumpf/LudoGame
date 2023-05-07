@@ -4,11 +4,13 @@
  */
 package src.Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipe.freitas_visag
  */
-public class Movimento {
+public class Movimento implements Serializable{
     
     Integer valorDado;
     

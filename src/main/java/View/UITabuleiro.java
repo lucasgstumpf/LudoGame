@@ -190,32 +190,36 @@ public class UITabuleiro extends javax.swing.JPanel {
         Movimento movimento = new Movimento(null, posAntiga, controller.isMyTurn());
         Integer posNova = controller.movePiece(movimento);
         System.out.println(posAntiga);
-        ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
-        ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
-        if (controller.isIsHost()) {
-            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+        if (posNova != null) {
+            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
+            ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+            if (controller.isIsHost()) {
+                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
 
-        } else {
-            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+            } else {
+                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+            }
         }
     }
 
-    public void receiveMovimento(Movimento movimento, Controller controller){
+    public void receiveMovimento(Movimento movimento, Controller controller) {
         Integer posNova = controller.movePiece(movimento);
-        ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(movimento.getNumeroCasa());
-        ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
-        if (controller.isIsHost()) {
-            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+        if (posNova != null) {
+            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(movimento.getNumeroCasa());
+            ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+            if (controller.isIsHost()) {
+                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
 
-        } else {
-            pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-            pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+            } else {
+                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+            }
         }
     }
-    
+
     public ArrayList<Integer> pegaPosicaoCasinha(int busca) {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
