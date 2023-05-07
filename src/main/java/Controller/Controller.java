@@ -111,10 +111,11 @@ public class Controller {
 
     public void conectar(String ip, int port) {
         try {
+            this.isHost = false;
+            System.out.println(isIsHost());
             this.con.setPort(port);
             this.con.setIp(InetAddress.getByName(ip));
             this.con.conectar();
-            this.isHost = false;
         } catch (UnknownHostException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

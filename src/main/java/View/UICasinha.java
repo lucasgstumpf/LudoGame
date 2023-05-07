@@ -58,7 +58,7 @@ public class UICasinha extends JButton {
         if (cor == 1) {
             try {
                 // Carrega a imagem do pião
-                BufferedImage originalImage = ImageIO.read(new File("E:/Geral/Unesp/Java/LudoGame/src/main/java/images/peaoAzul.png"));
+                BufferedImage originalImage = ImageIO.read(new File("C:/Users/felipe.freitas_visag/Documents/NetBeansProjects/LudoGame/src/main/java/images/peaoAzul.png"));
 
                 // Redimensiona a imagem para 50x50 pixels
                 BufferedImage resizedImage = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
@@ -77,7 +77,7 @@ public class UICasinha extends JButton {
         if (cor == 2) {
             try {
                 // Carrega a imagem do pião
-                BufferedImage originalImage = ImageIO.read(new File("E:/Geral/Unesp/Java/LudoGame/src/main/java/images/peaoVerde.png"));
+                BufferedImage originalImage = ImageIO.read(new File("C:/Users/felipe.freitas_visag/Documents/NetBeansProjects/LudoGame/src/main/java/images/peaoAzul.png"));
 
                 // Redimensiona a imagem para 50x50 pixels
                 BufferedImage resizedImage = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);

@@ -187,7 +187,7 @@ public class UITabuleiro extends javax.swing.JPanel {
 
     public void actionButtonCasinhas(int finalI, int finalJ, Controller controller) {
         int posAntiga = casinha[finalI][finalJ].getPosicao_array();
-        Movimento movimento = new Movimento(null, posAntiga, controller.isMyTurn());
+        Movimento movimento = new Movimento(null, posAntiga, controller.isIsHost());
         Integer posNova = controller.movePiece(movimento);
         System.out.println(posAntiga);
         if (posNova != null) {

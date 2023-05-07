@@ -45,8 +45,9 @@ public class Jogo {
     }
     
     public int rodarDado(){
-        int valorDado = 1 + (int)(Math.random()*6);
-        return valorDado;
+        //int valorDado = 1 + (int)(Math.random()*6);
+       // return valorDado;
+       return 6;
     }
     
     public void reiniciarTabuleiro(){
@@ -73,6 +74,7 @@ public class Jogo {
         int valorDado = movimento.getValorDado();
         int numeroCasa = movimento.getNumeroCasa();
         
+        System.out.println(movimento.isIsHost());
         if(movimento.isIsHost()){
             if((numeroCasa == 100 || numeroCasa == 101 || numeroCasa == 102 || numeroCasa == 103) && valorDado == 6){
                 Peao peao = casasIniciais.get(0).removePeaoI();
@@ -97,7 +99,7 @@ public class Jogo {
                 }
             } else if (casaFutura > 50){
                 Peao peao = casas.get(numeroCasa).removePeaoI();
-                casasRetaFinalAzul.get(70 + (casaFutura - 51)).addPeao(peao);
+                casasRetaFinalAzul.get(casaFutura - 51).addPeao(peao);
                 return 70 + (casaFutura - 51);
             } else {
                 Peao peao = casas.get(numeroCasa).removePeaoI();
@@ -107,7 +109,7 @@ public class Jogo {
         } else {
             if((numeroCasa == 110 || numeroCasa == 111 || numeroCasa == 112 || numeroCasa == 113) && valorDado == 6){
                 Peao peao = casasIniciais.get(1).removePeaoI();
-                casas.get(0).addPeao(peao);
+                casas.get(26).addPeao(peao);
                 return 26;
             } else if ((numeroCasa == 110 || numeroCasa == 111 || numeroCasa == 112 || numeroCasa == 113) && valorDado != 6){
                 return null;
@@ -128,14 +130,15 @@ public class Jogo {
                     return casaFutura;
                 }
             } else if(casaFutura > 51){
-                Peao peao = casasIniciais.get(numeroCasa).removePeaoI();
+                Peao peao = casas.get(numeroCasa).removePeaoI();
                 casas.get(casaFutura - 52).addPeao(peao);
                 return casaFutura - 52;
-            } else if (casaFutura > 24 ) {
+            } else if (casaFutura > 24 && numeroCasa < 25 ) {
                 Peao peao = casas.get(numeroCasa).removePeaoI();
-                casasRetaFinalVerde.get(80 + (casaFutura - 25)).addPeao(peao);
+                casasRetaFinalVerde.get(casaFutura - 25).addPeao(peao);
                 return 80 + (casaFutura - 25);
             } else {
+                System.out.println(casaFutura);
                 Peao peao = casas.get(numeroCasa).removePeaoI();
                 casas.get(casaFutura).addPeao(peao);
                 return casaFutura;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Casa {
     
-    private final static ArrayList<Peao> peoes = new ArrayList<>();
+    private final ArrayList<Peao> peoes = new ArrayList<>();
 
     private TipoCasa tipoCasa;
 
@@ -52,7 +52,7 @@ public class Casa {
         this.tipoCasa = tipoCasa;
     }
 
-    public static ArrayList<Peao> getPeoes() {
+    public ArrayList<Peao> getPeoes() {
         return peoes;
     } 
 }
