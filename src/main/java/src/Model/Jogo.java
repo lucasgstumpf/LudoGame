@@ -74,11 +74,11 @@ public class Jogo {
         int numeroCasa = movimento.getNumeroCasa();
         
         if(movimento.isIsHost()){
-            if(numeroCasa == 100 && valorDado == 6){
+            if((numeroCasa == 100 || numeroCasa == 101 || numeroCasa == 102 || numeroCasa == 103) && valorDado == 6){
                 Peao peao = casasIniciais.get(0).removePeaoI();
                 casas.get(0).addPeao(peao);
                 return 0;
-            } else if (numeroCasa == 100 && valorDado != 6){
+            } else if ((numeroCasa == 100 || numeroCasa == 101 || numeroCasa == 102 || numeroCasa == 103) && valorDado != 6){
                 return null;
             }
             
@@ -105,11 +105,11 @@ public class Jogo {
                     return casaFutura;     
             }
         } else {
-            if(numeroCasa == 101 && valorDado == 6){
+            if((numeroCasa == 110 || numeroCasa == 111 || numeroCasa == 112 || numeroCasa == 113) && valorDado == 6){
                 Peao peao = casasIniciais.get(1).removePeaoI();
                 casas.get(0).addPeao(peao);
                 return 26;
-            } else if (numeroCasa == 101 && valorDado != 6){
+            } else if ((numeroCasa == 110 || numeroCasa == 111 || numeroCasa == 112 || numeroCasa == 113) && valorDado != 6){
                 return null;
             }
             
