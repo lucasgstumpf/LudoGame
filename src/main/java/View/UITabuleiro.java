@@ -39,7 +39,7 @@ public class UITabuleiro extends javax.swing.JPanel {
                 if (i < 6 & j < 6) {
                     casinha[i][j].setCor(Color.YELLOW);
                 }
-                if (j < 6 & j > 0 & i == 7) {
+                if (j < 7 & j > 0 & i == 7) {
                     casinha[i][j].setCor(Color.YELLOW);
                 }
                 if (j == 1 & i == 6) {
@@ -50,7 +50,7 @@ public class UITabuleiro extends javax.swing.JPanel {
                 if (i > 8 & j < 6) {
                     casinha[i][j].setCor(Color.BLUE);
                 }
-                if (i < 14 & 8 < i & j == 7) {
+                if (i < 14 & 7 < i & j == 7) {
                     casinha[i][j].setCor(Color.BLUE);
                 }
                 if (j == 6 & i == 13) {
@@ -61,7 +61,7 @@ public class UITabuleiro extends javax.swing.JPanel {
                 if (i > 8 & j > 8) {
                     casinha[i][j].setCor(Color.RED);
                 }
-                if (j > 8 & j < 14 & i == 7) {
+                if (j > 7 & j < 14 & i == 7) {
                     casinha[i][j].setCor(Color.RED);
                 }
                 if (j == 13 & i == 8) {
@@ -72,7 +72,7 @@ public class UITabuleiro extends javax.swing.JPanel {
                 if (i < 6 & j > 8) {
                     casinha[i][j].setCor(Color.GREEN);
                 }
-                if (i < 6 & 0 < i & j == 7) {
+                if (i < 7 & 0 < i & j == 7) {
                     casinha[i][j].setCor(Color.GREEN);
                 }
                 if (j == 8 & i == 1) {
@@ -115,6 +115,16 @@ public class UITabuleiro extends javax.swing.JPanel {
                 add(casinha[i][j]);
             }
         }
+
+        casinha[8][1].setStar(true);
+        casinha[12][8].setStar(true);
+        casinha[2][6].setStar(true);
+        casinha[6][12].setStar(true);
+        casinha[6][6].setCor(Color.BLACK);
+        casinha[6][8].setCor(Color.BLACK);
+        casinha[8][6].setCor(Color.BLACK);
+        casinha[8][8].setCor(Color.BLACK);
+        casinha[7][7].setCor(Color.BLACK);
 
         int posicao = 0;
         for (int i = 13; i > 8; i--) {
@@ -162,7 +172,6 @@ public class UITabuleiro extends javax.swing.JPanel {
         posicao = 70;
 
         for (int i = 13; i > 7; i--) {
-            System.out.println("Passou");
             casinha[i][7].setPosicao_array(posicao);
             posicao++;
         }
@@ -191,15 +200,26 @@ public class UITabuleiro extends javax.swing.JPanel {
         Integer posNova = controller.movePiece(movimento);
         System.out.println(posAntiga);
         if (posNova != null) {
-            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(posAntiga);
+            ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(movimento.getNumeroCasa());
             ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+
             if (controller.isIsHost()) {
-                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                if (controller.temPeaoDuplo(movimento.getNumeroCasa())) {
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+                } else {
+                    pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                }
 
             } else {
-                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+                if (controller.temPeaoDuplo(movimento.getNumeroCasa())) {
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+                } else {
+                    pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                }
             }
         }
     }
@@ -209,13 +229,24 @@ public class UITabuleiro extends javax.swing.JPanel {
         if (posNova != null) {
             ArrayList<Integer> pairPosicaoAntiga = pegaPosicaoCasinha(movimento.getNumeroCasa());
             ArrayList<Integer> pairPosicaoNova = pegaPosicaoCasinha(posNova);
+
             if (controller.isIsHost()) {
-                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                if (controller.temPeaoDuplo(movimento.getNumeroCasa())) {
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+                } else {
+                    pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                }
 
             } else {
-                pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
-                pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 2);
+                if (controller.temPeaoDuplo(movimento.getNumeroCasa())) {
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+
+                } else {
+                    pintaCasa(pairPosicaoAntiga.get(0), pairPosicaoAntiga.get(1), 0);
+                    pintaCasa(pairPosicaoNova.get(0), pairPosicaoNova.get(1), 1);
+                }
             }
         }
     }

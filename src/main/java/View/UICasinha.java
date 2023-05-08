@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,12 +24,35 @@ public class UICasinha extends JButton {
 
     private int posicao_array;
     private Color corPiao;
+    private boolean hasStar = false;
 
     public UICasinha() {
         super();
+        this.hasStar = false;
         this.posicao_array = -1;
         setPreferredSize(new Dimension(50, 50));
         setBackground(Color.WHITE);
+    }
+
+    public void setStar(boolean hasStar) {
+        this.hasStar = hasStar;
+        repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (hasStar) {
+            super.paintComponent(g);
+            int largura = getWidth();
+            int altura = getHeight();
+
+            // desenha a estrela em amarelo
+            g.setColor(Color.YELLOW);
+            int[] xPoints = {largura / 2, largura / 2 + largura / 8, largura / 2 + largura / 4, largura / 2 + largura / 8, largura / 2, largura / 2 - largura / 8, largura / 2 - largura / 4, largura / 2 - largura / 8};
+            int[] yPoints = {altura / 2 - altura / 4, altura / 2 - altura / 8, altura / 2, altura / 2 + altura / 8, altura / 2 + altura / 4, altura / 2 + altura / 8, altura / 2, altura / 2 - altura / 8};
+            g.fillPolygon(xPoints, yPoints, 8);
+        }
     }
 
     public void addListener(ActionListener listener) {
@@ -58,7 +82,7 @@ public class UICasinha extends JButton {
         if (cor == 1) {
             try {
                 // Carrega a imagem do pião
-                BufferedImage originalImage = ImageIO.read(new File("C:/Users/felipe.freitas_visag/Documents/NetBeansProjects/LudoGame/src/main/java/images/peaoAzul.png"));
+               BufferedImage originalImage = ImageIO.read(new File("src/main/java/resources/peaoAzul.png"));
 
                 // Redimensiona a imagem para 50x50 pixels
                 BufferedImage resizedImage = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
@@ -73,11 +97,12 @@ public class UICasinha extends JButton {
             }
 
         }
-        
+
         if (cor == 2) {
             try {
                 // Carrega a imagem do pião
-                BufferedImage originalImage = ImageIO.read(new File("C:/Users/felipe.freitas_visag/Documents/NetBeansProjects/LudoGame/src/main/java/images/peaoAzul.png"));
+                BufferedImage originalImage = ImageIO.read(new File("src/main/java/resources/peaoVerde.png"));
+
 
                 // Redimensiona a imagem para 50x50 pixels
                 BufferedImage resizedImage = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
@@ -97,7 +122,6 @@ public class UICasinha extends JButton {
     public void setCor(Color cor) {
         setBackground(cor);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

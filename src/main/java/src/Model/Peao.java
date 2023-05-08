@@ -12,8 +12,8 @@ package src.Model;
 public class Peao {
     
     private int cor;
-    //Verde = 1
-    //Azul = 2
+    //Azul = 1
+    //Verde = 2
 
     public Peao(int cor) {
         this.cor = cor;

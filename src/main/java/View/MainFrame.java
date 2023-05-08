@@ -90,7 +90,22 @@ public class MainFrame extends JFrame {
         //Cria o Botao como jogar     
         regras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Mensagem 1\nMensagem 2", "Como jogar!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Regras do Ludo\n" +
+"Ludo é um jogo disputado por dois jogadores. Cada jogador deve escolher uma das cores disponíveis para jogar.\n" +
+"\n" +
+"O jogo começa com cada jogador se revezando para lançar o dado. Para que um jogador comece a mover uma peça pelo tabuleiro, ele deve lançar um seis. Depois de ter várias peças em jogo, você pode escolher qual delas deseja mover.\n" +
+"\n" +
+"Regra de seis\n" +
+"-Se você tem uma ou mais peças em jogo, pode escolher se quer retirar uma peça ou mover uma peça seis espaços.\n" +
+"\n" +
+"Praças ocupadas\n" +
+"-Se sua peça cair em uma casa ocupada por um oponente, a peça volta para a base e ele deve rolar um seis para retirá-la.\n" +
+"-Se você cair no mesmo quadrado que uma de suas outras peças, ela bloqueará o caminho de seus oponentes.\n" +
+"\n" +
+"Como ganhar\n" +
+"Você notará cinco quadrados de cada cor indo em direção ao meio. Assim que uma das suas peças percorre todo o tabuleiro, ela segue este caminho colorido até chegar ao centro.\n" +
+"\n" +
+"Assim que todas as quatro peças chegarem ao centro, você terá terminado o jogo. O vencedor é aquele que conseguir chegar primeiro ao centro. Outros jogadores lutam até que todas as peças cheguem ao meio.", "Como jogar!", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });

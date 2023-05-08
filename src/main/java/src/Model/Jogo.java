@@ -45,9 +45,8 @@ public class Jogo {
     }
     
     public int rodarDado(){
-        //int valorDado = 1 + (int)(Math.random()*6);
-       // return valorDado;
-       return 6;
+       int valorDado = 1 + (int)(Math.random()*6);
+       return valorDado;
     }
     
     public void reiniciarTabuleiro(){
@@ -60,6 +59,25 @@ public class Jogo {
     
     public void iniciarJogo(){
         reiniciarTabuleiro();     
+    }
+    public boolean temPeao(int posAntiga){
+        System.out.println(posAntiga);
+        if(posAntiga<52){
+            if(casas.get(posAntiga).getPeoes().size() > 0){
+                return true;
+            }
+        }else if(posAntiga<79){
+            if(casasRetaFinalAzul.get(posAntiga-70).getPeoes().size() > 0){
+                return true;
+            }
+        }else if(posAntiga<89){
+            if(casasRetaFinalVerde.get(posAntiga-80).getPeoes().size() > 0){
+                return true;
+            }
+        }
+        
+        return false;
+        
     }
     
     public boolean fimDeJogo(int index){
@@ -74,7 +92,6 @@ public class Jogo {
         int valorDado = movimento.getValorDado();
         int numeroCasa = movimento.getNumeroCasa();
         
-        System.out.println(movimento.isIsHost());
         if(movimento.isIsHost()){
             if((numeroCasa == 100 || numeroCasa == 101 || numeroCasa == 102 || numeroCasa == 103) && valorDado == 6){
                 Peao peao = casasIniciais.get(0).removePeaoI();

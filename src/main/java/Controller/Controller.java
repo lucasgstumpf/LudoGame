@@ -146,6 +146,10 @@ public class Controller {
         setValorDado(jogo.rodarDado());
         return valorDado;
     }
+    
+    public boolean temPeaoDuplo(int posAntiga) {
+        return jogo.temPeao(posAntiga);
+    }
 
     public void desistir() {
         Movimento movimento = new Movimento(null, null, null);
